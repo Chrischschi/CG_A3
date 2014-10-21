@@ -6,6 +6,8 @@
 package computergraphics.applications;
 
 
+import com.sun.media.sound.AuFileWriter;
+
 import computergraphics.datastructures.ITriangleMesh;
 import computergraphics.datastructures.Triangle;
 import computergraphics.datastructures.TriangleMesh;
@@ -46,20 +48,30 @@ public class CGFrame extends AbstractCGFrame {
 	 * @return
 	 */
 	private static ITriangleMesh createMesh() {
+		// TODO in methode auslagern zum gitter erstellen
 	   TriangleMesh mesh = new TriangleMesh();
-       //5 Vertices
-	   int _1 = mesh.addVertex(new Vertex(new Vector3(1,2,0)));
-	   int _2 = mesh.addVertex(new Vertex(new Vector3(2,1,0)));
-	   int _3 = mesh.addVertex(new Vertex(new Vector3(1,0,0)));
-	   int _4 = mesh.addVertex(new Vertex(new Vector3(0,1,0)));
-	   int _5 = mesh.addVertex(new Vertex(new Vector3(1,1,0)));
+	   
+	   int aufloesung = 2;
+	   double abstand = (1.0 / aufloesung );
+	   
+	   int anzahlVert = (aufloesung + 1) * (aufloesung + 1);
+	   
+	   for (int indexVert = 0; indexVert < anzahlVert; indexVert++){
+		   for(double x = 0; Double.compare(x, 1.0) != 0; x+=abstand) {
+			   for(double z = 0; Double.compare(z,1.0) != 0; z+=abstand ) {
+				   mesh.addVertex(new Vertex(new Vector3(x,0,z)));
+			   }
+		   }
+	   }
+	   
+	   System.out.println("number of vertices = " + mesh.getNumberOfVertices());
 	   
 	   //3 Triangles
-	   Triangle alpha = new Triangle(_1,_2,_5);
-	   Triangle beta = new Triangle(_2,_3,_5);
-	   Triangle gamma = new Triangle(_3,_4,_5);
+//	   Triangle alpha = new Triangle(_1,_2,_5);
+//	   Triangle beta = new Triangle(_2,_3,_5);
+//	   Triangle gamma = new Triangle(_3,_4,_5);
 	   
-	   mesh.addTriangle(alpha); mesh.addTriangle(beta); mesh.addTriangle(gamma);
+//	   mesh.addTriangle(alpha); mesh.addTriangle(beta); mesh.addTriangle(gamma);
 	   
 	   return mesh;
     }
