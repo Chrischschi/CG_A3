@@ -13,7 +13,6 @@ import computergraphics.datastructures.Vertex;
 import computergraphics.framework.AbstractCGFrame;
 import computergraphics.math.Vector3;
 import computergraphics.scenegraph.ColorNode;
-import computergraphics.scenegraph.SingleTriangleNode;
 import computergraphics.scenegraph.TriangleMeshNode;
 
 /**
