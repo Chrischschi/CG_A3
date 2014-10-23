@@ -136,28 +136,14 @@ public class TriangleMesh implements ITriangleMesh {
 				+ "facetList="+facetList
 				+ ")";
 	}
-	
-	
-	
-	public static void main(String args[]){
-		TriangleMesh mesh1 = new TriangleMesh();
-		
-		Triangle tri = new Triangle(0, 1, 2);
-		
-		Vertex vertA = new Vertex(new Vector3(1,2,3));
-		Vertex vertB = new Vertex(new Vector3(3,2,1));
-		Vertex vertC = new Vertex(new Vector3(2,1,3));
-		
-		
-		mesh1.addTriangle(tri);
-		
-		mesh1.addVertex(vertA);
-		mesh1.addVertex(vertB);
-		mesh1.addVertex(vertC);
-		
-		mesh1.calculateAllNormals();
-		
-		System.out.println("normal: " + tri.getNormal().toString() );
+
+	// Vertices berechnen. Abstand abhängig von der gewählten Auflösung
+	public void calculateAllVertices(double abstand) {
+		   for(double x = 0; Double.compare(x, (1.0 + abstand)) != 0; x += abstand){
+			   for (double z = 0; Double.compare(z, (1.0 + abstand)) != 0; z += abstand){
+				   this.addVertex(new Vertex(new Vector3(x, 0, z)));
+			   }
+		   }		
 	}
 
 }

@@ -56,11 +56,7 @@ public class CGFrame extends AbstractCGFrame {
 	   double abstand = (1.0 / aufloesung );	// Abstand zwischen den Vertices im Einheitswürfel
 	   
 	   // Vertices berechenen
-	   for(double x = 0; Double.compare(x, (1.0 + abstand)) != 0; x += abstand){
-		   for (double z = 0; Double.compare(z, (1.0 + abstand)) != 0; z += abstand){
-			   mesh.addVertex(new Vertex(new Vector3(x, 0, z)));
-		   }
-	   }
+	   mesh.calculateAllVertices(abstand);
 	   
 	   // Dreiecke berechenen
 	   // TODO Dreiecke automatisch generieren lassen
