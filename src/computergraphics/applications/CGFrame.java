@@ -6,6 +6,7 @@
 package computergraphics.applications;
 
 
+import com.jogamp.opengl.math.VectorUtil;
 import com.sun.media.sound.AuFileWriter;
 
 import computergraphics.datastructures.ITriangleMesh;
@@ -51,28 +52,46 @@ public class CGFrame extends AbstractCGFrame {
 		// TODO in methode auslagern zum gitter erstellen
 	   TriangleMesh mesh = new TriangleMesh();
 	   
-	   int aufloesung = 2;
-	   double abstand = (1.0 / aufloesung );
+	   double aufloesung = 2.0;		// zB: 8*8 = 91 Vertices = 64 Zellen = 128 Dreiecke
+	   double abstand = (1.0 / aufloesung );	// Abstand zwischen den Vertices im Einheitswürfel
 	   
-	   int anzahlVert = (aufloesung + 1) * (aufloesung + 1);
-	   
-	   for (int indexVert = 0; indexVert < anzahlVert; indexVert++){
-		   for(double x = 0; Double.compare(x, 1.0) != 0; x+=abstand) {
-			   for(double z = 0; Double.compare(z,1.0) != 0; z+=abstand ) {
-				   mesh.addVertex(new Vertex(new Vector3(x,0,z)));
-			   }
+	   // Vertices berechenen
+	   for(double x = 0; Double.compare(x, (1.0 + abstand)) != 0; x += abstand){
+		   for (double z = 0; Double.compare(z, (1.0 + abstand)) != 0; z += abstand){
+			   mesh.addVertex(new Vertex(new Vector3(x, 0, z)));
 		   }
 	   }
 	   
+	   // Dreiecke berechenen
+	   // TODO Dreiecke automatisch generieren lassen
+	   
+	   // erstmal nur gucken, ob die Vertices stimmen
+	   // ACHTUNG: Indices beginnen bei 0
+	   Triangle tri1 = new Triangle(0,1,3);
+	   Triangle tri2 = new Triangle(1,2,4);
+	   Triangle tri3 = new Triangle(3,4,6);
+	   Triangle tri4 = new Triangle(4,5,7);
+	   Triangle tri5 = new Triangle(1,3,4);
+	   Triangle tri6 = new Triangle(2,4,5);
+	   Triangle tri7 = new Triangle(4,6,7);
+	   Triangle tri8 = new Triangle(5,7,8);
+	   
+	   mesh.addTriangle(tri1);
+	   mesh.addTriangle(tri2);
+	   mesh.addTriangle(tri3);
+	   mesh.addTriangle(tri4);
+	   mesh.addTriangle(tri5);
+	   mesh.addTriangle(tri6);
+	   mesh.addTriangle(tri7);
+	   mesh.addTriangle(tri8);
+	   
+	   // Ausgabe anzahl der Knoten (testzwecke)
 	   System.out.println("number of vertices = " + mesh.getNumberOfVertices());
 	   
-	   //3 Triangles
-//	   Triangle alpha = new Triangle(_1,_2,_5);
-//	   Triangle beta = new Triangle(_2,_3,_5);
-//	   Triangle gamma = new Triangle(_3,_4,_5);
-	   
-//	   mesh.addTriangle(alpha); mesh.addTriangle(beta); mesh.addTriangle(gamma);
-	   
+	   // Ausgabe aller Knoten (testzwecke)
+	   for (int v = 0; v < mesh.getNumberOfVertices(); v++){
+		   System.out.println(mesh.getVertex(v));
+	   }	   
 	   return mesh;
     }
 

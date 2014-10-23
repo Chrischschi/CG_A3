@@ -221,6 +221,6 @@ public class Vector3 {
      public String toString() {
          /*TODO entscheiden, was für eine präzision bei der darstellung 
           * sinnvoll ist / ob der %.(N?)f oder %d formatter sinvoller ist. */
-         return String.format("(%.0f,%.0f,%.0f)",get(0),get(1),get(2));
+         return String.format("(%.2f, %.2f, %.2f)",get(0),get(1),get(2));
      }
 }
