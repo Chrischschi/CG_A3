@@ -137,13 +137,6 @@ public class TriangleMesh implements ITriangleMesh {
 				+ ")";
 	}
 
-	// Vertices berechnen. Abstand abhängig von der gewählten Auflösung
-	public void calculateAllVertices(double abstand) {
-		   for(double x = 0; Double.compare(x, (1.0 + abstand)) != 0; x += abstand){
-			   for (double z = 0; Double.compare(z, (1.0 + abstand)) != 0; z += abstand){
-				   this.addVertex(new Vertex(new Vector3(x, 0, z)));
-			   }
-		   }		
-	}
+
 
 }
