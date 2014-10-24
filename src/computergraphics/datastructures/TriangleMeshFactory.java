@@ -40,6 +40,7 @@ public class TriangleMeshFactory {
         
         /*Wir dürfen keine hellen dreiecke am rechten rand des gitters erzeugen
         daher "- aufloesung + 1 "  */
+        
         int letzterVertexIndex = (gitter.getNumberOfVertices()-1) - (aufloesung+1);
         for(int i = 0, faktor = 0; i <= letzterVertexIndex; i++) {
             if (i == (faktor+1)* aufloesung + faktor) { 
@@ -52,6 +53,7 @@ public class TriangleMeshFactory {
                 gitter.addTriangle(t);
             }
         }
+        
         /*Für ein dunkles dreieck gilt, dass
         seine knoten folgende indizes in der vertexList haben: 
         a = (von letzten index ausgehend); b = a - 1 , c = b - aufloesung */
@@ -59,7 +61,10 @@ public class TriangleMeshFactory {
         /*Wir dürfen keine dunklen dreiecke am linken rand des gitters erzeugen
         daher "- aufloesung + 1 "  */
 
-        for(int i = gitter.getNumberOfVertices()-1, faktor = aufloesung; i >= aufloesung + 1; i--){
+        /*faktor muss hier bei aufloesung - 1 beginnen, damit die richtige 
+         * anzahl von dreiecken erzeugt wird. */
+        for(int i = gitter.getNumberOfVertices() - 1, faktor = aufloesung - 1;
+                i >= aufloesung + 1; i--) {
             if (i == (faktor+1)* aufloesung + faktor + 1) { 
                 //Überspringen und faktor verringern.
                 faktor--;
