@@ -22,9 +22,6 @@ public class TriangleMeshFactory {
         double abstand = (1.0 / (double)aufloesung ); 
         
         makeVerticesForLattice(gitter,abstand);
-        
-        //TODO Dreiecke erzeugen lassen
-        
         makeTrianglesForLattice(gitter,aufloesung); 
         
         return gitter;

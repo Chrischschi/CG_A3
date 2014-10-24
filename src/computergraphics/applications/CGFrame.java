@@ -34,9 +34,12 @@ public class CGFrame extends AbstractCGFrame {
 	public CGFrame(int timerInverval) {
 		super(timerInverval);
 		ITriangleMesh lattice = TriangleMeshFactory.makeLattice(4);
-		TriangleMeshNode latticeNode = new TriangleMeshNode(lattice);
-		//TriangleMeshNode heightmap = new TriangleMeshNode(Heightmap.create()); 
-		getRoot().addChild(latticeNode);
+		String colorPath = "img/Color8x8.png";
+		
+		//TriangleMeshNode latticeNode = new TriangleMeshNode(lattice);
+		
+		TriangleMeshNode heightmap = new TriangleMeshNode(Heightmap.create(lattice, colorPath)); 
+		getRoot().addChild(heightmap);
 	}
 	
     /*
