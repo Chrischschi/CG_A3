@@ -25,9 +25,36 @@ public class TriangleMeshFactory {
         
         //TODO Dreiecke erzeugen lassen
         
+        makeTrianglesForLattice(gitter,aufloesung); 
+        
         return gitter;
     }
     
+    private static void makeTrianglesForLattice(TriangleMesh gitter, int aufloesung) {
+        
+        /*Das problem wird so gelöst, dass zwei iterationen durchgeführt werden,
+        In der einen richtung werden so genannte "helle" dreiecke eingefügt,
+        In die andere richtung "dunkle". Für ein helles dreieck gilt, dass
+        seine knoten folgende indizes in der vertexList haben: 
+        a = (index von 0 ausgehend); b = a + 1 , c = b + aufloesung */ 
+        
+        /*Wir dürfen keine hellen dreiecke am rechten rand des gitters erzeugen
+        daher "- aufloesung + 1 "  */
+        int letzterVertexIndex = (gitter.getNumberOfVertices()-1) - (aufloesung+1);
+        for(int i = 0, faktor = 0; i <= letzterVertexIndex; i++) {
+            if (i == (faktor+1)* aufloesung + faktor) { 
+                //Überspringen und faktor erhöhen
+                faktor++;
+            } else {
+                //Die drei indizes des vertex bestimmen
+                int a = i, b = a + 1, c = b + aufloesung;
+                Triangle t = new Triangle(a,b,c);
+                gitter.addTriangle(t);
+            }
+        }
+        
+    }
+
     // Vertices berechnen. Abstand abhängig von der gewählten Auflösung
     private static void makeVerticesForLattice(ITriangleMesh gitter,double abstand) {
            for(double x = 0; Double.compare(x, (1.0 + abstand)) != 0; x += abstand){
