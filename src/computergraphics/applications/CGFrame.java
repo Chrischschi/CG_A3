@@ -5,14 +5,9 @@
  */
 package computergraphics.applications;
 
-
-import com.jogamp.opengl.math.VectorUtil;
-import com.sun.media.sound.AuFileWriter;
-
 import computergraphics.datastructures.ITriangleMesh;
 import computergraphics.datastructures.Triangle;
 import computergraphics.datastructures.TriangleMesh;
-import computergraphics.datastructures.Vertex;
 import computergraphics.framework.AbstractCGFrame;
 import computergraphics.math.Vector3;
 import computergraphics.scenegraph.ColorNode;
@@ -61,8 +56,6 @@ public class CGFrame extends AbstractCGFrame {
 	   // Dreiecke berechenen
 	   // TODO Dreiecke automatisch generieren lassen
 	   
-	   // erstmal nur gucken, ob die Vertices stimmen
-	   // ACHTUNG: Indices beginnen bei 0
 	   Triangle tri1 = new Triangle(0,1,3);
 	   Triangle tri2 = new Triangle(1,2,4);
 	   Triangle tri3 = new Triangle(3,4,6);
@@ -88,6 +81,8 @@ public class CGFrame extends AbstractCGFrame {
 	   for (int v = 0; v < mesh.getNumberOfVertices(); v++){
 		   System.out.println(mesh.getVertex(v));
 	   }	   
+	   
+	   System.out.println("number of triangles = " + mesh.getNumberOfTriangles());
 	   return mesh;
     }
 
