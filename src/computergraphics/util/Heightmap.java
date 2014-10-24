@@ -28,7 +28,7 @@ public class Heightmap {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return lattice; // TODO Implementieren und parameter bestimmen
+        return lattice; // TODO richtig???
     }
     
     /** Setzt auf einer als dreiecksnetz dargestellten gitterstruktur die aus 
@@ -49,13 +49,14 @@ public class Heightmap {
      * @throws IOException 
      */
     private static void applyColorValues(ITriangleMesh lattice, String colorImagePath) throws IOException{
+    	// bild einlesen
     	BufferedImage bild = ImageIO.read(new File(colorImagePath));
     	
-    	System.out.println(lattice.getNumberOfVertices());
-    	
+    	// koordinaten für jeden pixel berechnen
+    	// TODO Pixel einem Vertex zuordnen und einfärben
+    	// TODO 4 = Auflösung
     	for(int i = 0; i <= 4; i++){
     		for (int j = 0; j <= 4; j++){
-    			Vertex vert = lattice.getVertex(i);
     			
     		}
     	}
