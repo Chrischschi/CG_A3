@@ -34,7 +34,7 @@ public class TriangleMeshNode extends Node {
             int numberOfTriangles = triangleMesh.getNumberOfTriangles();
             
             //initialize drawing
-            gl.glColor3d(1, 0, 0); //red
+            gl.glColor3d(0, 0, 0); //red
             gl.glBegin(GL.GL_TRIANGLES);
             
             //Draw every Triangle
