@@ -52,6 +52,24 @@ public class TriangleMeshFactory {
                 gitter.addTriangle(t);
             }
         }
+        /*Für ein dunkles dreieck gilt, dass
+        seine knoten folgende indizes in der vertexList haben: 
+        a = (von letzten index ausgehend); b = a - 1 , c = b - aufloesung */
+        
+        /*Wir dürfen keine dunklen dreiecke am linken rand des gitters erzeugen
+        daher "- aufloesung + 1 "  */
+
+        for(int i = gitter.getNumberOfVertices()-1, faktor = aufloesung; i >= aufloesung + 1; i--){
+            if (i == (faktor+1)* aufloesung + faktor + 1) { 
+                //Überspringen und faktor verringern.
+                faktor--;
+        	//Die drei indizes des vertex bestimmen
+            } else {
+            	int a = i, b = a - 1, c = b - aufloesung;
+            	Triangle t = new Triangle(a,b,c);
+            	gitter.addTriangle(t);
+            }
+        }
         
     }
 
