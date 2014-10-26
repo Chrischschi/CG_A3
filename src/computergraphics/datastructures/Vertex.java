@@ -23,7 +23,7 @@ public class Vertex {
 	/**
 	 * (Normalized) normal direction of the vertex.
 	 */
-	private Vector3 normal = new Vector3(1, 0, 0);
+	private Vector3 normal = new Vector3(0, 0, 0);
 
 	/**
 	 * Color value at the vertex
