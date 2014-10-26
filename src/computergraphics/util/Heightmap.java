@@ -1,6 +1,7 @@
 package computergraphics.util;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,12 +19,13 @@ public class Heightmap {
      * 
      * @return 
      */
-    public static ITriangleMesh create(ITriangleMesh lattice, String colorPath) {
-        //TODO hier applyHeightValues(ITriangleMesh) aufrufen
+    public static ITriangleMesh create(ITriangleMesh lattice,
+            double maxHeightValue,String heightmapPath,String colorPath) {
     	
     	ITriangleMesh temp = lattice;
     	
     	try {
+    	    applyHeightValues(lattice,maxHeightValue,heightmapPath);
 			applyColorValues(temp, colorPath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -37,9 +39,12 @@ public class Heightmap {
      * @param lattice Das dreiecksnetz dessen y-werte verändert werden sollen
      * @param maxHeightValue Der y-wert, den die Farbe Weiß aus dem Bild mit den
      * höhendaten darstellen soll. Dies ist auch der maximale y-wert 
+     * @throws IOException 
      */
-    private static void applyHeightValues(ITriangleMesh lattice,double maxHeightValue) {
-        //TODO Festlegen, wie man das Bild mit den höhen an die methode übergibt
+    private static void applyHeightValues(ITriangleMesh lattice,
+            double maxHeightValue,String heightmapPath) throws IOException {
+        Image image = ImageIO.read(new File(heightmapPath));
+        
     }
     
     /** Setzt Farbwerte für jeden Vertex in einem als Dreiecksnetz dargestellten
