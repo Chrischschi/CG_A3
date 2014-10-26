@@ -11,9 +11,11 @@ import javax.imageio.ImageIO;
 import computergraphics.datastructures.ITriangleMesh;
 import computergraphics.datastructures.Triangle;
 import computergraphics.datastructures.Vertex;
+import computergraphics.math.MathHelpers;
 import computergraphics.math.Vector3;
 
 public class Heightmap {
+    private final static float MAX_COLOR_VALUE = 255.0f;
     
     /** Erstellt ein komplettes Höhenfeld mit farben.
      * 
@@ -68,13 +70,23 @@ public class Heightmap {
         final int endX = image.getWidth()-1;
         
         int vertexIndex = 0; 
-        for(int x = startX; x <= endX; x += resolution) {
-            for(int y = startY; y >= 0;y -= resolution) {
+        
+        final int stepX = image.getWidth() / resolution;
+        final int stepY = image.getHeight() / resolution;
+        
+        for(int x = startX; x <= endX; x += stepX) {
+            for(int y = startY; y >= 0;y -= stepY) {
                 // 1. höhenwert aus bild extrahieren 
                 Color color = new Color(image.getRGB(x,y));
+                /* Sie können einfach einen der drei Farbkanäle z.B rot 
+                 * aus dem bild verwenden und davon ausgehen, dass die anderen
+                 * beiden den gleichen Wert haben. */
+                float height = color.getRed()/MAX_COLOR_VALUE;
                 
                 // 2. y-wert setzen 
-                lattice.getVertex(vertexIndex);
+                lattice.getVertex(vertexIndex)
+                .getPosition().set(MathHelpers.INDEX_1, height);
+                vertexIndex++;
             }
         }
         
