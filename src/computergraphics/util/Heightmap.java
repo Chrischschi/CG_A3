@@ -10,7 +10,9 @@ import javax.imageio.ImageIO;
 
 import sun.org.mozilla.javascript.internal.ast.LetNode;
 import computergraphics.datastructures.ITriangleMesh;
+import computergraphics.datastructures.Triangle;
 import computergraphics.datastructures.Vertex;
+import computergraphics.math.Vector3;
 
 public class Heightmap {
     
@@ -20,15 +22,16 @@ public class Heightmap {
      */
     public static ITriangleMesh create(ITriangleMesh lattice, String colorPath) {
         //TODO hier applyHeightValues(ITriangleMesh) aufrufen
-    	//TODO hier applyColorValues(ITriangleMesh lattice) aufrufen
+    	
+    	ITriangleMesh temp = lattice;
     	
     	try {
-			applyColorValues(lattice, colorPath);
+			applyColorValues(temp, colorPath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return lattice; // TODO richtig???
+        return temp; // TODO richtig???
     }
     
     /** Setzt auf einer als dreiecksnetz dargestellten gitterstruktur die aus 
@@ -52,14 +55,40 @@ public class Heightmap {
     	// bild einlesen
     	BufferedImage bild = ImageIO.read(new File(colorImagePath));
     	
-    	// koordinaten für jeden pixel berechnen
-    	// TODO Pixel einem Vertex zuordnen und einfärben
-    	// TODO 4 = Auflösung
-    	for(int i = 0; i <= 4; i++){
-    		for (int j = 0; j <= 4; j++){
+    	// auflösung des gitters berechenn
+    	int anzahlVert = lattice.getNumberOfVertices();
+    	int anzahlVertProDimesion = (int) Math.sqrt(lattice.getNumberOfVertices());
+    	int auflösung = (anzahlVert / anzahlVertProDimesion) - 1;
+    	
+    	int zuFaerbendesDreieck = 0;
+    	System.out.println("anzahl dreiecke " + lattice.getNumberOfTriangles());
+    	
+    	// farbwerte pro pixel auslesen
+    	for(int i = 0; i <= auflösung - 1; i++){
+    		for (int j = 0; j <= auflösung - 1 ; j++){
+    			// Farbwerts des Pixels
+    			Color farbWert = new Color(bild.getRGB(i,j));
+    			// Farbwert aufsplitten in RGB
+    			double rot = farbWert.getRed() / 255.0;
+    			double gruen = farbWert.getGreen() / 255.0;
+    			double blau = farbWert.getBlue() / 255.0;
+    			// Vector mit RGB Informationen erstellen
+    			Vector3 farbVector = new Vector3(rot, gruen, blau);
+    			// Vertex dem Farbvektor hinzufügen
+    			Triangle tri = lattice.getTriangle(zuFaerbendesDreieck);
     			
+    			Vertex vertexA = lattice.getVertex(tri.getA());
+                Vertex vertexB = lattice.getVertex(tri.getB());
+                Vertex vertexC = lattice.getVertex(tri.getC());
+                
+                vertexA.setColor(farbVector);
+                vertexB.setColor(farbVector);
+                vertexC.setColor(farbVector);
+                
+    			zuFaerbendesDreieck++;
     		}
     	}
+    	System.out.println(zuFaerbendesDreieck);
     }
 
 }

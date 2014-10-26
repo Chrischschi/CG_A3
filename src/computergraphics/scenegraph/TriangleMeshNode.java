@@ -34,7 +34,7 @@ public class TriangleMeshNode extends Node {
             int numberOfTriangles = triangleMesh.getNumberOfTriangles();
             
             //initialize drawing
-            gl.glColor3d(0, 0, 0); //red
+            //gl.glColor3d(0, 0, 0); //red
             gl.glBegin(GL.GL_TRIANGLES);
             
             //Draw every Triangle
@@ -56,10 +56,14 @@ public class TriangleMeshNode extends Node {
                 //Draw the Vertices based on the positions
                 
                 //Draw vertex A
+                gl.glColor3d(vertexA.getColor().get(0), vertexA.getColor().get(0), vertexA.getColor().get(0));
+                //gl.glColor3d(1.0, 0, 0);
                 gl.glVertex3d(positionA.get(0),positionA.get(1),positionA.get(2));
                 //Draw vertex B 
+                gl.glColor3d(vertexB.getColor().get(0), vertexA.getColor().get(0), vertexA.getColor().get(0));
                 gl.glVertex3d(positionB.get(0),positionB.get(1),positionB.get(2));
                 //Draw vertex C 
+                gl.glColor3d(vertexC.getColor().get(0), vertexA.getColor().get(0), vertexA.getColor().get(0));
                 gl.glVertex3d(positionC.get(0),positionC.get(1),positionC.get(2));
                 
                 
