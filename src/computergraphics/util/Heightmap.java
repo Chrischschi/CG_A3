@@ -1,14 +1,12 @@
 package computergraphics.util;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import sun.org.mozilla.javascript.internal.ast.LetNode;
 import computergraphics.datastructures.ITriangleMesh;
 import computergraphics.datastructures.Triangle;
 import computergraphics.datastructures.Vertex;
@@ -88,7 +86,6 @@ public class Heightmap {
     			zuFaerbendesDreieck++;
     		}
     	}
-    	System.out.println(zuFaerbendesDreieck);
     }
 
 }

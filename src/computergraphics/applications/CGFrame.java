@@ -6,8 +6,6 @@
 package computergraphics.applications;
 
 import computergraphics.datastructures.ITriangleMesh;
-import computergraphics.datastructures.Triangle;
-import computergraphics.datastructures.TriangleMesh;
 import computergraphics.datastructures.TriangleMeshFactory;
 import computergraphics.framework.AbstractCGFrame;
 import computergraphics.math.Vector3;
