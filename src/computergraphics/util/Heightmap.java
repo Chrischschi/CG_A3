@@ -19,13 +19,13 @@ public class Heightmap {
      * 
      * @return 
      */
-    public static ITriangleMesh create(ITriangleMesh lattice,
+    public static ITriangleMesh create(ITriangleMesh lattice,int resolution,
             double maxHeightValue,String heightmapPath,String colorPath) {
     	
     	ITriangleMesh temp = lattice;
     	
     	try {
-    	    applyHeightValues(lattice,maxHeightValue,heightmapPath);
+    	    applyHeightValues(lattice,resolution,maxHeightValue,heightmapPath);
 			applyColorValues(temp, colorPath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -41,9 +41,42 @@ public class Heightmap {
      * höhendaten darstellen soll. Dies ist auch der maximale y-wert 
      * @throws IOException 
      */
-    private static void applyHeightValues(ITriangleMesh lattice,
+    private static void applyHeightValues(ITriangleMesh lattice,int resolution,
             double maxHeightValue,String heightmapPath) throws IOException {
-        Image image = ImageIO.read(new File(heightmapPath));
+        BufferedImage image = ImageIO.read(new File(heightmapPath));
+        
+        /* Einfach stichprobenweise farbwerte aus dem bild des höhenfeldes ziehen.
+         * Die anzahl der stichproben ist gleich die anzahl der vertices unseres
+         * Dreiecksnetzes. wir starten einfach mit den pixeln unten links,dort 
+         * wo in unserem Dreiecksnetz der vertex mit dem index 0 ist. 
+         */
+        
+        /* 
+         * Ein bild ist so aufgebaut
+         * (0,0)-------------------(width-1,0)
+         *   |                          |
+         *   |                          |
+         *   |                          |
+         *   |                          |
+         *   |                          |
+         *   |                          |
+         *  (0,height-1)-------(width-1,height-1)   
+         */
+        
+        //pixel unten rechts bestimmen 
+        final int startX = 0, startY = image.getHeight()-1;
+        final int endX = image.getWidth()-1;
+        
+        int vertexIndex = 0; 
+        for(int x = startX; x <= endX; x += resolution) {
+            for(int y = startY; y >= 0;y -= resolution) {
+                // 1. höhenwert aus bild extrahieren 
+                Color color = new Color(image.getRGB(x,y));
+                
+                // 2. y-wert setzen 
+                lattice.getVertex(vertexIndex);
+            }
+        }
         
     }
     
