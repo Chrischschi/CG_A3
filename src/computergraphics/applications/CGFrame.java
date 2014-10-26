@@ -36,10 +36,11 @@ public class CGFrame extends AbstractCGFrame {
 		super(timerInverval);
 		ITriangleMesh lattice = TriangleMeshFactory.makeLattice(DEFAULT_RESOLUTION);
 		String colorPath = "img/Color8x8.png";
+		//String colorPath = "img/color.png";
 		String heightmapPath = "img/heightField.png";
 		
 		lattice = Heightmap.create(lattice,DEFAULT_RESOLUTION, MAX_HEIGHT,
-		        colorPath, heightmapPath);
+		        heightmapPath, colorPath);
 		
 		//TriangleMeshNode latticeNode = new TriangleMeshNode(lattice);
 		

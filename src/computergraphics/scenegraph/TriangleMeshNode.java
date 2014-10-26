@@ -56,7 +56,7 @@ public class TriangleMeshNode extends Node {
                 //Draw the Vertices based on the positions
                 
                 //Draw vertex A
-                System.out.println(vertexA.getColor().get(0));
+                //System.out.println(vertexA.getColor().get(0));
                 gl.glColor3d(vertexA.getColor().get(0), vertexA.getColor().get(1), vertexA.getColor().get(2));
                 gl.glVertex3d(positionA.get(0),positionA.get(1),positionA.get(2));
                 //Draw vertex B 

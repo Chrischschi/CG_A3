@@ -24,16 +24,14 @@ public class Heightmap {
     public static ITriangleMesh create(ITriangleMesh lattice,int resolution,
             double maxHeightValue,String heightmapPath,String colorPath) {
     	
-    	ITriangleMesh temp = lattice;
-    	
     	try {
     	    applyHeightValues(lattice,resolution,maxHeightValue,heightmapPath);
-			applyColorValues(temp, colorPath);
+			applyColorValues(lattice,resolution, colorPath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return temp; // TODO richtig???
+        return lattice; // TODO richtig???
     }
     
     /** Setzt auf einer als dreiecksnetz dargestellten gitterstruktur die aus 
@@ -99,28 +97,29 @@ public class Heightmap {
      * @param colorImagePath Pfad zur der Bilddatei mit Farbinformationen
      * @throws IOException 
      */
-    private static void applyColorValues(ITriangleMesh lattice, String colorImagePath) throws IOException{
+    private static void applyColorValues(ITriangleMesh lattice, int resolution, String colorImagePath) throws IOException{
     	// bild einlesen
     	BufferedImage bild = ImageIO.read(new File(colorImagePath));
     	
-    	// auflösung des gitters berechenn
-    	int anzahlVert = lattice.getNumberOfVertices();
-    	int anzahlVertProDimesion = (int) Math.sqrt(lattice.getNumberOfVertices());
-    	int auflösung = (anzahlVert / anzahlVertProDimesion) - 1;
+    	final int startX = 0, startY = bild.getHeight()-1;
+        final int endX = bild.getWidth()-1;
+        
+        final int stepX = bild.getWidth() / resolution;
+        final int stepY = bild.getHeight() / resolution;
     	
     	int zuFaerbendesDreieck = 0;
-    	System.out.println("anzahl dreiecke " + lattice.getNumberOfTriangles());
     	
     	// farbwerte pro pixel auslesen
-    	for(int i = 0; i <= auflösung - 1; i++){
-    		for (int j = 0; j <= auflösung - 1 ; j++){
+    	for(int x = startX; x <= endX; x += stepX){
+    		for (int y = startY; y >= 0; y -= stepY){
     			// Farbwerts des Pixels
-    			Color farbWert = new Color(bild.getRGB(i,j));
+    			Color farbWert = new Color(bild.getRGB(x,y));
     			// Farbwert aufsplitten in RGB
-    			double rot = farbWert.getRed() / 255.0;
-    			double gruen = farbWert.getGreen() / 255.0;
-    			double blau = farbWert.getBlue() / 255.0;
+    			double rot = farbWert.getRed() / MAX_COLOR_VALUE;
+    			float gruen = farbWert.getGreen() / MAX_COLOR_VALUE;
+    			float blau = farbWert.getBlue() / MAX_COLOR_VALUE;
     			// Vector mit RGB Informationen erstellen
+    			System.out.println("rot" + rot);
     			Vector3 farbVector = new Vector3(rot, gruen, blau);
     			// Vertex dem Farbvektor hinzufügen
     			Triangle tri = lattice.getTriangle(zuFaerbendesDreieck);
