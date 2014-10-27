@@ -116,8 +116,8 @@ public class Heightmap {
     			Color farbWert = new Color(bild.getRGB(x,y));
     			// Farbwert aufsplitten in RGB
     			double rot = farbWert.getRed() / MAX_COLOR_VALUE;
-    			float gruen = farbWert.getGreen() / MAX_COLOR_VALUE;
-    			float blau = farbWert.getBlue() / MAX_COLOR_VALUE;
+    			double gruen = farbWert.getGreen() / MAX_COLOR_VALUE;
+    			double blau = farbWert.getBlue() / MAX_COLOR_VALUE;
     			// Vector mit RGB Informationen erstellen
     			System.out.println("rot" + rot);
     			Vector3 farbVector = new Vector3(rot, gruen, blau);
