@@ -1,7 +1,6 @@
 package computergraphics.util;
 
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -79,7 +78,8 @@ public class Heightmap {
                 /* Sie können einfach einen der drei Farbkanäle z.B rot 
                  * aus dem bild verwenden und davon ausgehen, dass die anderen
                  * beiden den gleichen Wert haben. */
-                float height = color.getRed()/MAX_COLOR_VALUE;
+                double height = color.getRed()/MAX_COLOR_VALUE;
+                height = height * maxHeightValue;
                 
                 // 2. y-wert setzen 
                 lattice.getVertex(vertexIndex)

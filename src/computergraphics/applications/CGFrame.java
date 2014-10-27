@@ -26,7 +26,7 @@ public class CGFrame extends AbstractCGFrame {
 	 */
 	private static final long serialVersionUID = 4257130065274995543L;
 	/* "[...] beispielsweise weiß entspricht einem y‐Wert von 0.1."*/
-	private static final double MAX_HEIGHT = 0.1;
+	private static final double MAX_HEIGHT = 0.5;
 	private static final int DEFAULT_RESOLUTION = 8; //8x8
 
 	/**
@@ -47,7 +47,7 @@ public class CGFrame extends AbstractCGFrame {
 		TriangleMeshNode heightmap = new TriangleMeshNode(lattice); 
 		
 		// Colornode erstellen für farbliche Darstellung
-		ColorNode colorNode = new ColorNode(new Vector3(0, 0, 0));
+		ColorNode colorNode = new ColorNode(new Vector3(0.5, 0.5, 0.5));
 		
 		getRoot().addChild(colorNode);
 		colorNode.addChild(heightmap);
