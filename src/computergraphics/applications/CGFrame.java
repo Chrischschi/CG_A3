@@ -10,6 +10,7 @@ import computergraphics.datastructures.TriangleMeshFactory;
 import computergraphics.framework.AbstractCGFrame;
 import computergraphics.math.Vector3;
 import computergraphics.scenegraph.ColorNode;
+import computergraphics.scenegraph.TranslationNode;
 import computergraphics.scenegraph.TriangleMeshNode;
 import computergraphics.util.Heightmap;
 
@@ -46,10 +47,14 @@ public class CGFrame extends AbstractCGFrame {
 		
 		TriangleMeshNode heightmap = new TriangleMeshNode(lattice); 
 		
+		TranslationNode translationNode = 
+		        new TranslationNode(new Vector3(-0.5,0,-0.5));
+		
 		// Colornode erstellen für farbliche Darstellung
 		ColorNode colorNode = new ColorNode(new Vector3(0, 0, 0));
 		
-		getRoot().addChild(colorNode);
+		getRoot().addChild(translationNode);
+		translationNode.addChild(colorNode);
 		colorNode.addChild(heightmap);
 	}
 	
