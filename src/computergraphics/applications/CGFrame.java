@@ -27,7 +27,7 @@ public class CGFrame extends AbstractCGFrame {
 	private static final long serialVersionUID = 4257130065274995543L;
 	/* "[...] beispielsweise weiß entspricht einem y‐Wert von 0.1."*/
 	private static final double MAX_HEIGHT = 0.5;
-	private static final int DEFAULT_RESOLUTION = 8; //8x8
+	private static final int DEFAULT_RESOLUTION = 800; //8x8
 
 	/**
 	 * Constructor.
@@ -35,8 +35,8 @@ public class CGFrame extends AbstractCGFrame {
 	public CGFrame(int timerInverval) {
 		super(timerInverval);
 		ITriangleMesh lattice = TriangleMeshFactory.makeLattice(DEFAULT_RESOLUTION);
-		String colorPath = "img/Color8x8.png";
-		//String colorPath = "img/color.png";
+		//String colorPath = "img/Color8x8.png";
+		String colorPath = "img/color.png";
 		String heightmapPath = "img/heightField.png";
 		
 		lattice = Heightmap.create(lattice,DEFAULT_RESOLUTION, MAX_HEIGHT,
@@ -47,7 +47,7 @@ public class CGFrame extends AbstractCGFrame {
 		TriangleMeshNode heightmap = new TriangleMeshNode(lattice); 
 		
 		// Colornode erstellen für farbliche Darstellung
-		ColorNode colorNode = new ColorNode(new Vector3(0.5, 0.5, 0.5));
+		ColorNode colorNode = new ColorNode(new Vector3(0, 0, 0));
 		
 		getRoot().addChild(colorNode);
 		colorNode.addChild(heightmap);

@@ -18,10 +18,7 @@ public class TriangleMeshFactory {
     public static ITriangleMesh makeLattice(int aufloesung) {
         TriangleMesh gitter = new TriangleMesh();
         
-        // Abstand zwischen den Vertices im Einheitswürfel
-        double abstand = (1.0 / (double)aufloesung ); 
-        
-        makeVerticesForLattice(gitter,abstand);
+        makeVerticesForLattice(gitter,aufloesung);
         makeTrianglesForLattice(gitter,aufloesung); 
         
         return gitter;
@@ -76,10 +73,13 @@ public class TriangleMeshFactory {
     }
 
     // Vertices berechnen. Abstand abhängig von der gewählten Auflösung
-    private static void makeVerticesForLattice(ITriangleMesh gitter,double abstand) {
-           for(double x = 0; Double.compare(x, (1.0 + abstand)) != 0; x += abstand){
-               for (double z = 0; Double.compare(z, (1.0 + abstand)) != 0; z += abstand){
-                   gitter.addVertex(new Vertex(new Vector3(x, 0, z)));
+    private static void makeVerticesForLattice(ITriangleMesh gitter,int aufloesung) {
+        // Abstand zwischen den Vertices im Einheitswürfel
+        double abstand = (1.0 / (double)aufloesung ); 
+        
+           for(int x = 0; x <= aufloesung; x++){
+               for (int z = aufloesung; z >= 0; z--){
+                   gitter.addVertex(new Vertex(new Vector3(x*abstand, 0, z*abstand)));
                }
            }        
     }
