@@ -71,10 +71,16 @@ public class Heightmap {
         final int stepX = image.getWidth() / resolution;
         final int stepY = image.getHeight() / resolution;
         
+        
         for(int x = startX; x <= endX; x += stepX) {
             for(int y = startY; y >= 0;y -= stepY) {
                 // 1. höhenwert aus bild extrahieren 
-                Color color = new Color(image.getRGB(x,y));
+                
+                System.out.printf("getRGB(x=%d,((resolution-1)-y)=%d)\n",
+                        x,(resolution-1)-y);
+                
+                
+                Color color = new Color(image.getRGB(x,(resolution-1)-y));
                 /* Sie können einfach einen der drei Farbkanäle z.B rot 
                  * aus dem bild verwenden und davon ausgehen, dass die anderen
                  * beiden den gleichen Wert haben. */
@@ -119,7 +125,6 @@ public class Heightmap {
     			double gruen = farbWert.getGreen() / MAX_COLOR_VALUE;
     			double blau = farbWert.getBlue() / MAX_COLOR_VALUE;
     			// Vector mit RGB Informationen erstellen
-    			System.out.println("rot" + rot);
     			Vector3 farbVector = new Vector3(rot, gruen, blau);
     			// Vertex dem Farbvektor hinzufügen
     			Triangle tri = lattice.getTriangle(zuFaerbendesDreieck);

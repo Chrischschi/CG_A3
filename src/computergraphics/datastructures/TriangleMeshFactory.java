@@ -77,8 +77,8 @@ public class TriangleMeshFactory {
         // Abstand zwischen den Vertices im Einheitswürfel
         double abstand = (1.0 / (double)aufloesung ); 
         
-           for(int x = 0; x <= aufloesung; x++){
-               for (int z = aufloesung; z >= 0; z--){
+           for(int x = 0; x < aufloesung+1; x++){
+               for(int z = 0; z < aufloesung+1; z++){
                    gitter.addVertex(new Vertex(new Vector3(x*abstand, 0, z*abstand)));
                }
            }        
