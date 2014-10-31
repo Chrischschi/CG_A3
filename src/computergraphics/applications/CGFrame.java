@@ -5,6 +5,8 @@
  */
 package computergraphics.applications;
 
+import java.io.IOException;
+
 import computergraphics.datastructures.ITriangleMesh;
 import computergraphics.datastructures.TriangleMesh;
 import computergraphics.datastructures.TriangleMeshFactory;
@@ -13,6 +15,7 @@ import computergraphics.math.Vector3;
 import computergraphics.scenegraph.ColorNode;
 import computergraphics.scenegraph.TranslationNode;
 import computergraphics.scenegraph.TriangleMeshNode;
+import computergraphics.util.HeightfieldNEW;
 import computergraphics.util.Heightmap;
 
 /**
@@ -33,25 +36,24 @@ public class CGFrame extends AbstractCGFrame {
 
 	/**
 	 * Constructor.
+	 * @throws IOException 
 	 */
-	public CGFrame(int timerInverval) {
+	public CGFrame(int timerInverval) throws IOException {
 		super(timerInverval);
-		ITriangleMesh lattice = TriangleMeshFactory.makeLattice(DEFAULT_RESOLUTION);
 		//String colorPath = "img/Color8x8.png";
 		String colorPath = "img/color.png";
 		String heightmapPath = "img/heightField.png";
 		//String heightmapPath = "img/Color8x8.png";
 		
-		((TriangleMesh)lattice).calculateAllNormals();
 		
-		lattice = Heightmap.create(lattice,DEFAULT_RESOLUTION, MAX_HEIGHT,
-		        heightmapPath, colorPath);
+		ITriangleMesh heightfield = HeightfieldNEW.makeField(DEFAULT_RESOLUTION,
+		        heightmapPath, colorPath,MAX_HEIGHT);
 		
 		
 		
 		//TriangleMeshNode latticeNode = new TriangleMeshNode(lattice);
 		
-		TriangleMeshNode heightmap = new TriangleMeshNode(lattice); 
+		TriangleMeshNode heightfieldNode = new TriangleMeshNode(heightfield); 
 		
 		TranslationNode translationNode = 
 		        new TranslationNode(new Vector3(-0.5,0,-0.5));
@@ -61,7 +63,7 @@ public class CGFrame extends AbstractCGFrame {
 		
 		getRoot().addChild(translationNode);
 		translationNode.addChild(colorNode);
-		colorNode.addChild(heightmap);
+		colorNode.addChild(heightfieldNode);
 	}
 	
     /*
@@ -76,8 +78,9 @@ public class CGFrame extends AbstractCGFrame {
 
 	/**
 	 * Program entry point.
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		new CGFrame(1000);
 	}
 }

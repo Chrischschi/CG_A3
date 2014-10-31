@@ -18,6 +18,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import computergraphics.datastructures.ITriangleMesh;
+import computergraphics.datastructures.Triangle;
 import computergraphics.datastructures.TriangleMesh;
 import computergraphics.datastructures.Vertex;
 import computergraphics.math.Vector3;
@@ -51,17 +52,23 @@ public class HeightfieldNEW {
          * erzeugen,die y-werte in die vertices eintragen, die farben in die 
          * vertices eintragen. 
          */
-        double interval = 1 / resolution;
+        double intervalImageX = 1.0 / heightfieldImage.getWidth();
+        double intervalImageZ = 1.0 / heightfieldImage.getHeight();
+        double intervalMesh = 1.0 / resolution;
         // Erste Schleife: Vertices komplett erzeugen, mit farben und höhenwerten
-        for(int z = resolution+1; z <= 0; z--) {
+        System.out.println("Erste Schleife");
+        for(int z = resolution; z >= 0; z--) {
             for(int x = 0; x <= resolution; x++) {
                 double vertexHeight = new Color(heightfieldImage
-                        .getRGB((int)(x * interval),(int)(z * interval)))
+                        .getRGB((int)(x * intervalImageX),
+                                (int)(z * intervalImageZ)))
                         .getRed()/MAX_COLOR_VALUE;
+                //verrechnen mit maximal erlaubter höhe
+                vertexHeight *= maxHeight; 
                 Color vertexColor = new Color(colorImage
-                        .getRGB((int)(x * interval),(int)(z * interval)));
+                        .getRGB((int)(x * intervalImageX),(int)(z * intervalImageZ)));
                 Vertex vertex = new Vertex(
-                        new Vector3(x*interval, vertexHeight, z*interval)
+                        new Vector3(x*intervalMesh, vertexHeight, z*intervalMesh)
                         );
                 vertex.setColor(new Vector3(
                         vertexColor.getRed()/MAX_COLOR_VALUE, 
@@ -72,6 +79,25 @@ public class HeightfieldNEW {
                 heightfield.addVertex(vertex);
             }
         }
+        //Zweite schleife: Dreiecke in die menge von vertices einfügen
+        System.out.println("Zweite Schleife");
+        for(int v = 0, faktor = 0; 
+                v < heightfield.getNumberOfVertices()-(resolution+2);
+                v++) {
+            if (v == (faktor+1)*resolution+faktor) {
+                //Wenn der knoten am rechten rand des dreiecksnetzes ist, 
+                //dann muss der knoten übersprungen werden.
+                faktor++;
+            }
+            //Zwei dreiecke pro zelle hinzufügen
+            //Oberes rechtes dreieck
+            heightfield.addTriangle(new Triangle(v,v+1,v+resolution+1+1));
+            //Unteres linkes dreieck
+            heightfield.addTriangle(
+                    new Triangle(v,v+resolution+2,v+resolution+1)
+                    );
+        }
+        System.out.println("return heightfield");
         
         return heightfield;
         
