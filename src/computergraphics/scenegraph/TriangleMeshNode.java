@@ -58,15 +58,18 @@ public class TriangleMeshNode extends Node {
                 //Draw vertex A
                 //System.out.println(vertexA.getColor().get(0));
                 gl.glColor3d(vertexA.getColor().get(0), vertexA.getColor().get(1), vertexA.getColor().get(2));
-                gl.glNormal3d(vertexA.getNormal().get(0), vertexA.getColor().get(1), vertexA.getColor().get(2));
+                gl.glNormal3d(triangle.getNormal().get(0),triangle.getNormal().get(1),
+                        triangle.getNormal().get(2));
                 gl.glVertex3d(positionA.get(0),positionA.get(1),positionA.get(2));
                 //Draw vertex B 
                 gl.glColor3d(vertexB.getColor().get(0), vertexB.getColor().get(1), vertexB.getColor().get(2));
-                gl.glNormal3d(vertexB.getNormal().get(0), vertexB.getColor().get(1), vertexB.getColor().get(2));
+                gl.glNormal3d(triangle.getNormal().get(0),triangle.getNormal().get(1),
+                        triangle.getNormal().get(2));                
                 gl.glVertex3d(positionB.get(0),positionB.get(1),positionB.get(2));
                 //Draw vertex C 
                 gl.glColor3d(vertexC.getColor().get(0), vertexC.getColor().get(1), vertexC.getColor().get(2));
-                gl.glNormal3d(vertexC.getNormal().get(0), vertexC.getColor().get(1), vertexC.getColor().get(2));
+                gl.glNormal3d(triangle.getNormal().get(0),triangle.getNormal().get(1),
+                        triangle.getNormal().get(2));
                 gl.glVertex3d(positionC.get(0),positionC.get(1),positionC.get(2));
                 
                 

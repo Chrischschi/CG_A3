@@ -31,7 +31,7 @@ public class CGFrame extends AbstractCGFrame {
 	 */
 	private static final long serialVersionUID = 4257130065274995543L;
 	/* "[...] beispielsweise weiß entspricht einem y‐Wert von 0.1."*/
-	private static final double MAX_HEIGHT = 0.1;
+	private static final double MAX_HEIGHT = 0.3;
 	private static final int DEFAULT_RESOLUTION = 800; //8x8
 
 	/**
@@ -49,6 +49,8 @@ public class CGFrame extends AbstractCGFrame {
 		ITriangleMesh heightfield = HeightfieldNEW.makeField(DEFAULT_RESOLUTION,
 		        heightmapPath, colorPath,MAX_HEIGHT);
 		
+		((TriangleMesh)heightfield).calculateAllNormals();
+		
 		
 		
 		//TriangleMeshNode latticeNode = new TriangleMeshNode(lattice);
@@ -59,7 +61,7 @@ public class CGFrame extends AbstractCGFrame {
 		        new TranslationNode(new Vector3(-0.5,0,-0.5));
 		
 		// Colornode erstellen für farbliche Darstellung
-		ColorNode colorNode = new ColorNode(new Vector3(0, 0, 0));
+		ColorNode colorNode = new ColorNode(new Vector3(1, 1, 1));
 		
 		getRoot().addChild(translationNode);
 		translationNode.addChild(colorNode);

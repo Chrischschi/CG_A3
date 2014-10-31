@@ -52,13 +52,15 @@ public class HeightfieldNEW {
          * erzeugen,die y-werte in die vertices eintragen, die farben in die 
          * vertices eintragen. 
          */
-        double intervalImageX = 1.0 / heightfieldImage.getWidth();
-        double intervalImageZ = 1.0 / heightfieldImage.getHeight();
+        double intervalImageX = heightfieldImage.getWidth() / resolution;
+        double intervalImageZ = heightfieldImage.getHeight() / resolution;
         double intervalMesh = 1.0 / resolution;
         // Erste Schleife: Vertices komplett erzeugen, mit farben und höhenwerten
         System.out.println("Erste Schleife");
-        for(int z = resolution; z >= 0; z--) {
-            for(int x = 0; x <= resolution; x++) {
+        for(int z = resolution-1; z >= 0; z--) {
+            for(int x = 0; x < resolution; x++) {
+                System.out.println("x: "+x+ " x * intervalImageX: "+(x*intervalImageX));
+                System.out.println("z: "+z+ " z * intervalImagez: "+(z*intervalImageZ));
                 double vertexHeight = new Color(heightfieldImage
                         .getRGB((int)(x * intervalImageX),
                                 (int)(z * intervalImageZ)))
@@ -81,6 +83,7 @@ public class HeightfieldNEW {
         }
         //Zweite schleife: Dreiecke in die menge von vertices einfügen
         System.out.println("Zweite Schleife");
+        /*
         for(int v = 0, faktor = 0; 
                 v < heightfield.getNumberOfVertices()-(resolution+2);
                 v++) {
@@ -96,6 +99,19 @@ public class HeightfieldNEW {
             heightfield.addTriangle(
                     new Triangle(v,v+resolution+2,v+resolution+1)
                     );
+        }
+        */
+        for (int z = 0; z < resolution-1; z++) { //res-1 unterer rand weglassen
+            for(int x = 0; x < resolution-1; x++) { //res-1 rechter rand weglassen 
+                int currentVertex = x + resolution * z;
+                
+                Triangle triangle = new Triangle(currentVertex, 
+                        currentVertex + resolution, currentVertex + resolution + 1);
+                heightfield.addTriangle(triangle);
+                triangle = new Triangle(currentVertex, currentVertex+resolution+1,
+                        currentVertex+1);
+                heightfield.addTriangle(triangle);
+            }
         }
         System.out.println("return heightfield");
         
