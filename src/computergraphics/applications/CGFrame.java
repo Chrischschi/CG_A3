@@ -61,7 +61,7 @@ public class CGFrame extends AbstractCGFrame {
 		        new TranslationNode(new Vector3(-0.5,0,-0.5));
 		
 		// Colornode erstellen für farbliche Darstellung
-		ColorNode colorNode = new ColorNode(new Vector3(1, 1, 1));
+		ColorNode colorNode = new ColorNode(new Vector3(0, 0.5, 0));
 		
 		getRoot().addChild(translationNode);
 		translationNode.addChild(colorNode);
