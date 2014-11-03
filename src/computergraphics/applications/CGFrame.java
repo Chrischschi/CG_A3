@@ -8,7 +8,6 @@ package computergraphics.applications;
 import java.io.IOException;
 
 import computergraphics.datastructures.ITriangleMesh;
-import computergraphics.datastructures.TriangleMesh;
 import computergraphics.framework.AbstractCGFrame;
 import computergraphics.math.Vector3;
 import computergraphics.scenegraph.ColorNode;
@@ -44,9 +43,11 @@ public class CGFrame extends AbstractCGFrame {
 		//String heightmapPath = "img/Color8x8.png";
 		
 		
+		//heightfield: aus bild
 		ITriangleMesh heightfield = Heightfield.makeField(DEFAULT_RESOLUTION,
 		        heightmapPath, colorPath, MAX_HEIGHT);
 		
+		//heightfield2: aus funktion
 		ITriangleMesh heightfield2 = Heightfield.makeField(DEFAULT_RESOLUTION,
 		        colorPath,(x,y) -> (Math.sin(x*3*Math.PI)+
 		        Math.cos(y*3*Math.PI))+(Math.random()*10e-4)
@@ -54,7 +55,7 @@ public class CGFrame extends AbstractCGFrame {
 		
 		
 		
-		TriangleMeshNode heightfieldNode = new TriangleMeshNode(heightfield); 
+		TriangleMeshNode heightfieldNode = new TriangleMeshNode(heightfield2); 
 		
 		TranslationNode translationNode = 
 		        new TranslationNode(new Vector3(-0.5,0,-0.5));

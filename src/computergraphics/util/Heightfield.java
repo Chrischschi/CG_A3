@@ -14,7 +14,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.function.BiFunction;
 import java.util.function.DoubleBinaryOperator;
 
 import javax.imageio.ImageIO;
