@@ -9,14 +9,12 @@ import java.io.IOException;
 
 import computergraphics.datastructures.ITriangleMesh;
 import computergraphics.datastructures.TriangleMesh;
-import computergraphics.datastructures.TriangleMeshFactory;
 import computergraphics.framework.AbstractCGFrame;
 import computergraphics.math.Vector3;
 import computergraphics.scenegraph.ColorNode;
 import computergraphics.scenegraph.TranslationNode;
 import computergraphics.scenegraph.TriangleMeshNode;
-import computergraphics.util.HeightfieldNEW;
-import computergraphics.util.Heightmap;
+import computergraphics.util.Heightfield;
 
 /**
  * Application for the first exercise.
@@ -46,14 +44,15 @@ public class CGFrame extends AbstractCGFrame {
 		//String heightmapPath = "img/Color8x8.png";
 		
 		
-		ITriangleMesh heightfield = HeightfieldNEW.makeField(DEFAULT_RESOLUTION,
-		        heightmapPath, colorPath,MAX_HEIGHT);
+		ITriangleMesh heightfield = Heightfield.makeField(DEFAULT_RESOLUTION,
+		        heightmapPath, colorPath, MAX_HEIGHT);
 		
-		((TriangleMesh)heightfield).calculateAllNormals();
+		ITriangleMesh heightfield2 = Heightfield.makeField(DEFAULT_RESOLUTION,
+		        colorPath,(x,y) -> (Math.sin(x*3*Math.PI)+
+		        Math.cos(y*3*Math.PI))+(Math.random()*10e-4)
+		        ,MAX_HEIGHT );
 		
 		
-		
-		//TriangleMeshNode latticeNode = new TriangleMeshNode(lattice);
 		
 		TriangleMeshNode heightfieldNode = new TriangleMeshNode(heightfield); 
 		
